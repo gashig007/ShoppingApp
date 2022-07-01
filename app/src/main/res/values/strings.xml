@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Shopping Application</string>
+    <string name="getlist">getlist</string>
+    <string name="getitem">getitem</string>
+    <string name="get_item">get item</string>
+    <string name="get_list">get list</string>
+    <string name="edit">edit</string>
+    <string name="delete">delete</string>
+    <string name="add">add</string>
+</resources>
