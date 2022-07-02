@@ -1,4 +1,9 @@
 package com.geektech.shoppingapplication.domain
 
-class DeleteShopItemUseCase {
+import com.geektech.shoppingapplication.domain.entity.ShopItem
+
+class DeleteShopItemUseCase (private val shopListRepository: ShopListRepository) {
+    fun deleteShopItem(shopItem: ShopItem){
+        shopListRepository.deleteShopItem(shopItem)
+    }
 }
