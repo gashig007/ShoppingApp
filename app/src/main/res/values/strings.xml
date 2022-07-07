@@ -7,4 +7,6 @@
     <string name="edit">edit</string>
     <string name="delete">delete</string>
     <string name="add">add</string>
+    <string name="addItem">Создать</string>
+    <string name="text">Введите текст</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.geektech.shoppingapplication.presentation
+package com.geektech.shoppingapplication.presentation.main
 
 import android.content.ContentValues.TAG
 import androidx.appcompat.app.AppCompatActivity
