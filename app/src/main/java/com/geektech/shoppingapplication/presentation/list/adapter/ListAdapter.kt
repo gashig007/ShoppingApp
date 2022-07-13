@@ -11,7 +11,7 @@ import com.geektech.shoppingapplication.domain.entity.ShopItem
 
 class ListAdapter(private val onClick: ((shopItem: ShopItem) -> Boolean)? = null) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    var list1 = listOf<ShopItem>()
+    var list = listOf<ShopItem>()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -42,7 +42,7 @@ class ListAdapter(private val onClick: ((shopItem: ShopItem) -> Boolean)? = null
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val item = list1[position]
+        val item = list[position]
         when (getItemViewType(position)) {
             R.layout.item_shop_enabled -> (holder as ViewHolderEnabled).bind(item)
             R.layout.item_shop_disabled -> (holder as ViewHolderDiss).bind(item)
@@ -51,11 +51,11 @@ class ListAdapter(private val onClick: ((shopItem: ShopItem) -> Boolean)? = null
 
 
     override fun getItemCount(): Int {
-        return list1.size
+        return list.size
     }
 
     override fun getItemViewType(position: Int): Int {
-        return when (list1[position].enable) {
+        return when (list[position].enable) {
             true -> R.layout.item_shop_enabled
             false -> R.layout.item_shop_disabled
         }

@@ -61,9 +61,9 @@ class ListActivity : AppCompatActivity() {
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val item = adapter.list1[viewHolder.adapterPosition]
+                val item = adapter.list[viewHolder.adapterPosition]
                 viewModel.deleteShopItem(item)
-                adapter.list1 = viewModel.getShopList()
+                adapter.list = viewModel.getShopList()
             }
         }
 
@@ -79,13 +79,9 @@ class ListActivity : AppCompatActivity() {
                     val name = intent?.getStringExtra(KEY_NAME)
                     val count = intent?.getStringExtra(KEY_COUNT)
                     viewModel.addShopItem(ShopItem(name, count?.toInt(), Random.nextBoolean()))
-                    adapter.list1 = viewModel.getShopList()
+                    adapter.list = viewModel.getShopList()
                 }
             }
-    }
-
-    private fun onClick(shopItem: ShopItem) {
-
     }
 
     companion object {
