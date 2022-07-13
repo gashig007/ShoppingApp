@@ -1,13 +1,18 @@
 package com.geektech.shoppingapplication.presentation.list.adapter
 
+import android.content.ContentValues.TAG
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.geektech.shoppingapplication.R
 import com.geektech.shoppingapplication.databinding.ItemShopDisabledBinding
 import com.geektech.shoppingapplication.databinding.ItemShopEnabledBinding
 import com.geektech.shoppingapplication.domain.entity.ShopItem
+import com.geektech.shoppingapplication.presentation.list.ListActivity
+import com.geektech.shoppingapplication.presentation.main.MainViewModel
 
 class ListAdapter(private val onClick: ((shopItem: ShopItem) -> Boolean)? = null) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -71,6 +76,12 @@ class ListAdapter(private val onClick: ((shopItem: ShopItem) -> Boolean)? = null
                 shopItem.enable = false
                 notifyItemChanged(adapterPosition)
             }
+
+            root.setOnLongClickListener {
+                val item = list[position]
+                Log.e(TAG, "Item: $item")
+                true
+            }
         }
     }
 
@@ -82,9 +93,13 @@ class ListAdapter(private val onClick: ((shopItem: ShopItem) -> Boolean)? = null
             root.setOnClickListener {
                 shopItem.enable = true
                 notifyItemChanged(adapterPosition)
+            }
 
+            root.setOnLongClickListener {
+                val item = list[position]
+                Log.e(TAG, "Item: $item")
+                true
             }
         }
     }
-
 }
