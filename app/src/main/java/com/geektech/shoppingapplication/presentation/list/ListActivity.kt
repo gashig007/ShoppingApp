@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -69,6 +70,15 @@ class ListActivity : AppCompatActivity() {
 
         val itemTouchHelper = ItemTouchHelper(callback)
         itemTouchHelper.attachToRecyclerView(binding.recyclerList)
+
+        adapter.onShopItemClickListener = {
+            viewModel.editShopItem(it)
+            adapter.list = viewModel.getShopList()
+        }
+
+        adapter.onShopItemLongClickListener = {
+            Toast.makeText(this, "${it.name}", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun resultListener() {

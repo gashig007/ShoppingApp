@@ -5,7 +5,7 @@ import com.geektech.shoppingapplication.domain.entity.ShopItem
 
 class ShopListRepositoryImpl : ShopListRepository {
 
-    private val shopList = mutableListOf<ShopItem>()
+    private val shopList = sortedSetOf<ShopItem>({o1, o2 -> o1.id.compareTo(o2.id)})
     private var autoIncrementId = 0
 
     override fun addShopItem(shopItem: ShopItem) {
@@ -26,7 +26,9 @@ class ShopListRepositoryImpl : ShopListRepository {
     }
 
     override fun getShopItem(shopItemId: Int): ShopItem {
-        return shopList[shopItemId]
+        return shopList.find {
+            it.id == shopItemId
+        } ?: throw RuntimeException("Element with Id $shopItemId not found")
     }
 
     override fun getShopList(): List<ShopItem> {

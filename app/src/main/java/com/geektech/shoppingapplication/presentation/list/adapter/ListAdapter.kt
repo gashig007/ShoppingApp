@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.geektech.shoppingapplication.R
 import com.geektech.shoppingapplication.databinding.ItemShopDisabledBinding
@@ -14,12 +15,16 @@ import com.geektech.shoppingapplication.domain.entity.ShopItem
 import com.geektech.shoppingapplication.presentation.list.ListActivity
 import com.geektech.shoppingapplication.presentation.main.MainViewModel
 
-class ListAdapter(private val onClick: ((shopItem: ShopItem) -> Boolean)? = null) :
+class ListAdapter :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    var onShopItemClickListener: ((ShopItem) -> Unit)? = null
+    var onShopItemLongClickListener: ((ShopItem) -> Unit)? = null
     var list = listOf<ShopItem>()
         set(value) {
+            val callback = ShopListDiffCallback(list, value)
+            val diffResult = DiffUtil.calculateDiff(callback)
+            diffResult.dispatchUpdatesTo(this)
             field = value
-            notifyDataSetChanged()
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -73,13 +78,15 @@ class ListAdapter(private val onClick: ((shopItem: ShopItem) -> Boolean)? = null
             binding.tvName.text = shopItem.name
             binding.tvCount.text = shopItem.count.toString()
             root.setOnClickListener {
-                shopItem.enable = false
-                notifyItemChanged(adapterPosition)
+                /*shopItem.enable = false
+                notifyItemChanged(adapterPosition)*/
+                onShopItemClickListener?.invoke(shopItem)
             }
 
             root.setOnLongClickListener {
-                val item = list[position]
-                Log.e(TAG, "Item: $item")
+                /*val item = list[position]
+                Log.e(TAG, "Item: $item")*/
+                onShopItemLongClickListener?.invoke(shopItem)
                 true
             }
         }
